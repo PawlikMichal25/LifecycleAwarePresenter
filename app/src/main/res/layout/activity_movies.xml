@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".movies.view.MoviesActivity">
+
+    <ProgressBar
+        android:id="@+id/progressBar_movies"
+        android:layout_width="@dimen/movies_progressBar_size"
+        android:layout_height="@dimen/movies_progressBar_size" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/movie_item" />
+
+    <TextView
+        android:id="@+id/textView_movies_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/default_half_padding"
+        android:drawableTop="@drawable/ic_error"
+        android:textSize="@dimen/error_text_size"
+        android:visibility="gone"
+        tools:text="@string/unknown_error_occurred" />
+</LinearLayout>

@@ -1,13 +1,14 @@
-package io.baranmichal.thecaseagainstlivedata
+package io.baranmichal.thecaseagainstlivedata.movies.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import io.baranmichal.thecaseagainstlivedata.R
 
-class MainActivity : AppCompatActivity() {
+class MoviesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movies)
 
 
     }
