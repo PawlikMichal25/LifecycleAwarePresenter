@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TheCaseAgainstLiveData</string>
+    <string name="server_error_occurred">Server error occurred</string>
     <string name="unknown_error_occurred">Unknown error occurred</string>
 </resources>
