@@ -30,8 +30,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
 
     // ViewModel + LiveData
-    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
-    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 
     // RecyclerView
     implementation "com.android.support:recyclerview-v7:$support_version"
