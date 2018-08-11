@@ -2,6 +2,7 @@ package io.baranmichal.thecaseagainstlivedata.movies.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.view.View
 import io.baranmichal.thecaseagainstlivedata.LifeApplication
 import io.baranmichal.thecaseagainstlivedata.R
@@ -64,6 +65,7 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
     }
 
     private fun setupRecyclerView() {
+        recyclerView_movies.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView_movies.adapter = adapter
     }
 }
