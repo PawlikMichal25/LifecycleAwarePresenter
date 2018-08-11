@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.baranmichal.thecaseagainstlivedata.base.di.qualifiers.ApplicationContext
 import io.baranmichal.thecaseagainstlivedata.movies.data.MoviesRepository
+import io.baranmichal.thecaseagainstlivedata.movies.data.network.MoviesClient
 import io.baranmichal.thecaseagainstlivedata.movies.presenter.MoviesMessageProvider
 
 @Module
@@ -16,7 +17,7 @@ class MoviesModule {
     }
 
     @Provides
-    fun provideMoviesRepository(): MoviesRepository {
-        return MoviesRepository()
+    fun provideMoviesRepository(moviesClient: MoviesClient): MoviesRepository {
+        return MoviesRepository(moviesClient)
     }
 }

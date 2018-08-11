@@ -1,16 +1,14 @@
 package io.baranmichal.thecaseagainstlivedata.movies.data
 
+import io.baranmichal.thecaseagainstlivedata.movies.data.network.MoviesClient
 import io.reactivex.Single
+import javax.inject.Inject
 
-class MoviesRepository {
+class MoviesRepository @Inject constructor(
+    private val moviesClient: MoviesClient
+) {
 
     fun getMovies(): Single<List<Movie>> {
-        return Single.just(
-            listOf(
-                Movie("title1"),
-                Movie("title2"),
-                Movie("title3")
-            )
-        )
+        return moviesClient.getMovies()
     }
 }

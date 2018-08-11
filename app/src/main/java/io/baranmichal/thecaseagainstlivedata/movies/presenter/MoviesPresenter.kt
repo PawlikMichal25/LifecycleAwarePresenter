@@ -47,6 +47,7 @@ class MoviesPresenter : BasePresenter<MoviesView>() {
     }
 
     private fun getErrorMessage(error: Throwable): String {
+        println(error)
         return when (error) {
             is IOException -> messageProvider.getServerErrorMessage()
             else -> messageProvider.getUnknownErrorMessage()
