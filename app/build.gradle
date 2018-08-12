@@ -6,6 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlin-allopen'
+
+
+allOpen {
+    annotation 'io.baranmichal.thecaseagainstlivedata.testing.OpenClass'
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
