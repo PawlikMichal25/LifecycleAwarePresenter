@@ -9,5 +9,4 @@ import io.baranmichal.thecaseagainstlivedata.movies.view.MoviesActivity
 @Subcomponent(modules=[MoviesModule::class])
 interface MoviesComponent{
     fun inject(activity: MoviesActivity)
-    fun inject(presenter: MoviesPresenter)
 }

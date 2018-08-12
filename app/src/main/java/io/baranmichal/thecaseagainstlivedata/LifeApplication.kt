@@ -12,8 +12,6 @@ class LifeApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        application = this
-
         initDagger()
     }
 
@@ -27,10 +25,4 @@ class LifeApplication: Application() {
     }
 
     fun getComponent() = applicationComponent
-
-    companion object {
-        private lateinit var application: LifeApplication
-
-        fun get(): LifeApplication = application
-    }
 }

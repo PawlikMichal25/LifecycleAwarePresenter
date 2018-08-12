@@ -58,8 +58,8 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
     }
 
     private fun injectDependencies() {
-        LifeApplication.get()
-            .getComponent()
+        val app = application as LifeApplication
+        app.getComponent()
             .plus(MoviesModule())
             .inject(this)
     }
