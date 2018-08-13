@@ -19,15 +19,11 @@ class NetworkModule {
 
     @Provides
     @PerApp
-    fun provideGson(): Gson = Gson()
-
-    @Provides
-    @PerApp
-    fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit =
+    fun provideRetrofit(httpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
