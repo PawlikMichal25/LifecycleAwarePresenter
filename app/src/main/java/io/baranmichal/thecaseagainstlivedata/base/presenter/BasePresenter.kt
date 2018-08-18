@@ -14,7 +14,6 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
     private var viewLifecycle: Lifecycle? = null
     private val disposable = CompositeDisposable()
 
-    @Synchronized
     fun attachView(view: View, viewLifecycle: Lifecycle) {
         this.view = view
         this.viewLifecycle = viewLifecycle
@@ -22,12 +21,10 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         viewLifecycle.addObserver(this)
     }
 
-    @Synchronized
     protected fun view(): View? {
         return view
     }
 
-    @Synchronized
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private fun onViewDestroyed() {
         view = null
