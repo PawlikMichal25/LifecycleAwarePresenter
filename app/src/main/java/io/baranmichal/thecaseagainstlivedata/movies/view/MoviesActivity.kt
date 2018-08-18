@@ -31,6 +31,7 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
 
         val presenter = PresenterProviders.of(this, moviesPresenterFactory).get(MoviesPresenter::class.java)
         presenter.attachView(this, lifecycle)
+        presenter.loadMovies()
     }
 
     override fun showLoading() {

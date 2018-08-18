@@ -13,10 +13,6 @@ class MoviesPresenter @Inject constructor(
     private val messageProvider: MoviesMessageProvider
 ) : BasePresenter<MoviesView>() {
 
-    override fun onViewAttached(view: MoviesView) {
-        loadMovies()
-    }
-
     fun loadMovies() {
         repository.getMovies()
             .subscribeOn(schedulers.io)

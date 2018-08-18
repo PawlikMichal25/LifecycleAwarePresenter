@@ -20,11 +20,6 @@ abstract class BasePresenter<View> : ViewModel(), LifecycleObserver {
         this.viewLifecycle = viewLifecycle
 
         viewLifecycle.addObserver(this)
-        onViewAttached(view)
-    }
-
-    protected open fun onViewAttached(view: View) {
-
     }
 
     @Synchronized
