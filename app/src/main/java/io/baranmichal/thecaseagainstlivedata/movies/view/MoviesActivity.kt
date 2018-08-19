@@ -35,26 +35,26 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
     }
 
     override fun showLoading() {
-        recyclerView_movies.visibility = View.GONE
-        textView_movies_error.visibility = View.GONE
+        recyclerview_movies.visibility = View.GONE
+        textview_movies_error.visibility = View.GONE
 
-        progressBar_movies.visibility = View.VISIBLE
+        progressbar_movies.visibility = View.VISIBLE
     }
 
     override fun showMovies(movies: List<Movie>) {
-        progressBar_movies.visibility = View.GONE
-        textView_movies_error.visibility = View.GONE
+        progressbar_movies.visibility = View.GONE
+        textview_movies_error.visibility = View.GONE
 
-        recyclerView_movies.visibility = View.VISIBLE
+        recyclerview_movies.visibility = View.VISIBLE
         adapter.updateMovies(movies)
     }
 
     override fun showError(message: String) {
-        progressBar_movies.visibility = View.GONE
-        recyclerView_movies.visibility = View.GONE
+        progressbar_movies.visibility = View.GONE
+        recyclerview_movies.visibility = View.GONE
 
-        textView_movies_error.visibility = View.VISIBLE
-        textView_movies_error.text = message
+        textview_movies_error.visibility = View.VISIBLE
+        textview_movies_error.text = message
     }
 
     private fun injectDependencies() {
@@ -65,7 +65,7 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
     }
 
     private fun setupRecyclerView() {
-        recyclerView_movies.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        recyclerView_movies.adapter = adapter
+        recyclerview_movies.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerview_movies.adapter = adapter
     }
 }

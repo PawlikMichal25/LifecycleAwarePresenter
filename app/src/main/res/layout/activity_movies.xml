@@ -9,14 +9,14 @@
     tools:context=".movies.view.MoviesActivity">
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progressBar_movies"
+        android:id="@+id/progressbar_movies"
         android:layout_width="@dimen/movies_progressBar_size"
         android:layout_height="@dimen/movies_progressBar_size"
         app:indicatorColor="@color/colorAccent"
         app:indicatorName="BallPulseIndicator" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_movies"
+        android:id="@+id/recyclerview_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -24,7 +24,7 @@
         tools:listitem="@layout/movie_item" />
 
     <TextView
-        android:id="@+id/textView_movies_error"
+        android:id="@+id/textview_movies_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/default_half_padding"
