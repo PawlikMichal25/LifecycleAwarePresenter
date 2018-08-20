@@ -22,6 +22,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation": "$projectDir/schemas".toString()
+                ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -55,6 +63,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
 
     // AVLoadingIndicatorView
     implementation 'com.wang.avi:library:2.1.3'
