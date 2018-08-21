@@ -9,17 +9,19 @@ import javax.inject.Inject
 class MoviesRepository @Inject constructor(
     private val moviesClient: MoviesClient
 ) {
-    private var movies: List<Movie>? = null
+    private var moviesCache: List<Movie>? = null
 
     fun loadMovies(): Single<List<Movie>> {
+        val movies = moviesCache
+
         if (movies != null) {
             return Single.just(movies)
         } else {
-            return moviesClient.getMovies().doOnSuccess { movies = it }
+            return moviesClient.getMovies().doOnSuccess { moviesCache = it }
         }
     }
 
     fun refreshMovies(): Single<List<Movie>> {
-        return moviesClient.getMovies().doOnSuccess { movies = it }
+        return moviesClient.getMovies().doOnSuccess { moviesCache = it }
     }
 }
