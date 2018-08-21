@@ -9,8 +9,17 @@ import javax.inject.Inject
 class MoviesRepository @Inject constructor(
     private val moviesClient: MoviesClient
 ) {
+    private var movies: List<Movie>? = null
 
-    fun getMovies(): Single<List<Movie>> {
-        return moviesClient.getMovies()
+    fun loadMovies(): Single<List<Movie>> {
+        if (movies != null) {
+            return Single.just(movies)
+        } else {
+            return moviesClient.getMovies().doOnSuccess { movies = it }
+        }
+    }
+
+    fun refreshMovies(): Single<List<Movie>> {
+        return moviesClient.getMovies().doOnSuccess { movies = it }
     }
 }

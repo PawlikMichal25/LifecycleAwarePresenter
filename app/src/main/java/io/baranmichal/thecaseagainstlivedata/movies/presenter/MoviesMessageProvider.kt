@@ -9,8 +9,8 @@ class MoviesMessageProvider(
     private val context: Context
 ) {
 
-    fun getServerErrorMessage(): String {
-        return context.getString(R.string.server_error_occurred)
+    fun getConnectionErrorMessage(): String {
+        return context.getString(R.string.connection_error_occurred)
     }
 
     fun getUnknownErrorMessage(): String {

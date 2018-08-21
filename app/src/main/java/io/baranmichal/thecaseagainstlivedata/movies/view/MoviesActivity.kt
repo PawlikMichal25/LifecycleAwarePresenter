@@ -1,7 +1,9 @@
 package io.baranmichal.thecaseagainstlivedata.movies.view
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.view.View
 import io.baranmichal.thecaseagainstlivedata.LifeApplication
@@ -19,6 +21,8 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
     @Inject
     lateinit var moviesPresenterFactory: MoviesPresenterFactory
 
+    private lateinit var presenter: MoviesPresenter
+
     private val adapter = MoviesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,34 +31,12 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
 
         injectDependencies()
 
+        setupSwipeRefresh()
         setupRecyclerView()
 
-        val presenter = PresenterProviders.of(this, moviesPresenterFactory).get(MoviesPresenter::class.java)
+        presenter = PresenterProviders.of(this, moviesPresenterFactory).get(MoviesPresenter::class.java)
         presenter.attachView(this, lifecycle)
         presenter.loadMovies()
-    }
-
-    override fun showLoading() {
-        recyclerview_movies.visibility = View.GONE
-        textview_movies_error.visibility = View.GONE
-
-        progressbar_movies.visibility = View.VISIBLE
-    }
-
-    override fun showMovies(movies: List<Movie>) {
-        progressbar_movies.visibility = View.GONE
-        textview_movies_error.visibility = View.GONE
-
-        recyclerview_movies.visibility = View.VISIBLE
-        adapter.updateMovies(movies)
-    }
-
-    override fun showError(message: String) {
-        progressbar_movies.visibility = View.GONE
-        recyclerview_movies.visibility = View.GONE
-
-        textview_movies_error.visibility = View.VISIBLE
-        textview_movies_error.text = message
     }
 
     private fun injectDependencies() {
@@ -64,8 +46,52 @@ class MoviesActivity : AppCompatActivity(), MoviesView {
             .inject(this)
     }
 
+    private fun setupSwipeRefresh() {
+        swiperefresh_movies.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
+        swiperefresh_movies.setOnRefreshListener {
+            presenter.refreshMovies()
+        }
+    }
+
     private fun setupRecyclerView() {
         recyclerview_movies.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerview_movies.adapter = adapter
+    }
+
+    override fun showLoading() {
+        swiperefresh_movies.visibility = View.GONE
+        textview_movies_error.visibility = View.GONE
+
+        progressbar_movies.visibility = View.VISIBLE
+    }
+
+    override fun showRefresh() {
+        swiperefresh_movies.isRefreshing = true
+    }
+
+    override fun showMovies(movies: List<Movie>) {
+        progressbar_movies.visibility = View.GONE
+        textview_movies_error.visibility = View.GONE
+
+        swiperefresh_movies.visibility = View.VISIBLE
+        swiperefresh_movies.isRefreshing = false
+        adapter.updateMovies(movies)
+    }
+
+    override fun showLoadingError(message: String) {
+        progressbar_movies.visibility = View.GONE
+        swiperefresh_movies.visibility = View.GONE
+
+        textview_movies_error.visibility = View.VISIBLE
+        textview_movies_error.text = message
+    }
+
+    override fun showRefreshError(message: String) {
+        swiperefresh_movies.isRefreshing = false
+
+        Snackbar.make(layout_movies, message, Snackbar.LENGTH_SHORT).run {
+            setAction(R.string.retry) { presenter.retryRefreshClicked() }
+            show()
+        }
     }
 }

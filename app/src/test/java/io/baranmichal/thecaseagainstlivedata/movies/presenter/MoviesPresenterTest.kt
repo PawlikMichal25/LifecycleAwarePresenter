@@ -32,8 +32,8 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `when getMovies, then loading shown`() {
-        whenever(repository.getMovies()).thenReturn(Single.just(emptyList()))
+    fun `when loadMovies, then loading shown`() {
+        whenever(repository.loadMovies()).thenReturn(Single.just(emptyList()))
 
         presenter.loadMovies()
 
@@ -41,9 +41,9 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `when getMovies is successful, then movies are shown`() {
+    fun `when loadMovies is successful, then movies are shown`() {
         val movies = arrayListOf(Movie(1, "title1"), Movie(2, "title2"))
-        whenever(repository.getMovies()).thenReturn(Single.just(movies))
+        whenever(repository.loadMovies()).thenReturn(Single.just(movies))
 
         presenter.loadMovies()
 
@@ -51,24 +51,65 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `when during getMovies IO error happens, then server error message shown`() {
-        val message = "Server error"
-        whenever(messageProvider.getServerErrorMessage()).thenReturn(message)
-        whenever(repository.getMovies()).thenReturn(Single.error(IOException()))
+    fun `when during loadMovies IO error thrown, then connection message for loading error shown`() {
+        val message = "Connection error"
+        whenever(messageProvider.getConnectionErrorMessage()).thenReturn(message)
+        whenever(repository.loadMovies()).thenReturn(Single.error(IOException()))
 
         presenter.loadMovies()
 
-        verify(view).showError(message)
+        verify(view).showLoadingError(message)
     }
 
     @Test
-    fun `when during getMovies unknown error happens, then server unknown message shown`() {
+    fun `when during loadMovies unknown error thrown, then unknown message for loading error shown`() {
         val message = "Unknown error"
         whenever(messageProvider.getUnknownErrorMessage()).thenReturn(message)
-        whenever(repository.getMovies()).thenReturn(Single.error(ClassCastException()))
+        whenever(repository.loadMovies()).thenReturn(Single.error(ClassCastException()))
 
         presenter.loadMovies()
 
-        verify(view).showError(message)
+        verify(view).showLoadingError(message)
+    }
+
+    @Test
+    fun `when refreshMovies is successful, then movies are shown`() {
+        val movies = arrayListOf(Movie(1, "title1"), Movie(2, "title2"))
+        whenever(repository.refreshMovies()).thenReturn(Single.just(movies))
+
+        presenter.refreshMovies()
+
+        verify(view).showMovies(movies)
+    }
+
+    @Test
+    fun `when during refreshMovies IO error thrown, then connection message for refresh error shown`() {
+        val message = "Connection error"
+        whenever(messageProvider.getConnectionErrorMessage()).thenReturn(message)
+        whenever(repository.refreshMovies()).thenReturn(Single.error(IOException()))
+
+        presenter.refreshMovies()
+
+        verify(view).showRefreshError(message)
+    }
+
+    @Test
+    fun `when during refreshMovies unknown error thrown, then unknown message for refresh error shown`() {
+        val message = "Unknown error"
+        whenever(messageProvider.getUnknownErrorMessage()).thenReturn(message)
+        whenever(repository.refreshMovies()).thenReturn(Single.error(ClassCastException()))
+
+        presenter.refreshMovies()
+
+        verify(view).showRefreshError(message)
+    }
+
+    @Test
+    fun `when retryRefreshClicked, then refresh shown`() {
+        whenever(repository.refreshMovies()).thenReturn(Single.just(emptyList()))
+
+        presenter.retryRefreshClicked()
+
+        verify(view).showRefresh()
     }
 }

@@ -14,7 +14,7 @@ class MoviesPresenter @Inject constructor(
 ) : BasePresenter<MoviesView>() {
 
     fun loadMovies() {
-        repository.getMovies()
+        repository.loadMovies()
             .subscribeOn(schedulers.io)
             .observeOn(schedulers.main)
             .doOnSubscribe {
@@ -23,14 +23,31 @@ class MoviesPresenter @Inject constructor(
             .subscribe({
                 view()?.showMovies(it)
             }, {
-                view()?.showError(getErrorMessage(it))
+                view()?.showLoadingError(getErrorMessage(it))
             })
             .autoClear()
     }
 
+    fun refreshMovies() {
+        repository.refreshMovies()
+            .subscribeOn(schedulers.io)
+            .observeOn(schedulers.main)
+            .subscribe({
+                view()?.showMovies(it)
+            }, {
+                view()?.showRefreshError(getErrorMessage(it))
+            })
+            .autoClear()
+    }
+
+    fun retryRefreshClicked() {
+        view()?.showRefresh()
+        refreshMovies()
+    }
+
     private fun getErrorMessage(error: Throwable): String {
         return when (error) {
-            is IOException -> messageProvider.getServerErrorMessage()
+            is IOException -> messageProvider.getConnectionErrorMessage()
             else -> messageProvider.getUnknownErrorMessage()
         }
     }
