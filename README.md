@@ -1,6 +1,6 @@
 # TheCaseAgainstLiveData
 Advocating against LiveData and proposing Lifecycle-aware Presenter as a more practical solution. 
-This repo serves as an example for my article at https://medium.com/p/f77d640115ef
+This repo serves as an example for my article [Lifecycle aware Presenter instead of LiveData](https://medium.com/p/f77d640115ef)
 
 In addition in this project I have also used a couple of ideas like: 
 * [autoClear()](https://thuytrinh.github.io/rxjava/android/2018/06/26/utility-auto-clear.html) to avoid writing boilerprate code for disposing RxJava disposables in Presenters   
