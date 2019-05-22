@@ -1,4 +1,4 @@
-# TheCaseAgainstLiveData
+# LifecycleAwarePresenter
 Advocating against LiveData and proposing Lifecycle-aware Presenter as a more practical solution. 
 This repo serves as an example for my article [Lifecycle aware Presenter instead of LiveData](https://medium.com/p/f77d640115ef)
 
